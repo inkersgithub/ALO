@@ -24,7 +24,7 @@
             color: #fff;
             border: none;
             position: relative;
-            padding: 0.2em;
+            padding: 0.5em;
             cursor: pointer;
             padding-left: 10px;
             padding-right: 10px;
@@ -55,22 +55,14 @@
 </head>
 
 <body>
-    <div class="container" style="margin-top:20px;padding-right: 3px;padding-left: 3px;">
-        <div class="row" style="margin-right: 0px;margin-left: 0px; ">
+    <div class="container" style="margin-top:10px;padding-right: 3px;padding-left: 3px;">
+        
+		<div class="row" style="margin-right: 0px;margin-left: 0px; ">
             <div style="text-align:center;">
-            	<img width="280" style="width: 90%;height: auto;" src="images/10788.jpeg">
-				<button>Buttton</button>
+            	<img width="280" style="width: 94%;height: auto;" src="images/10788.jpeg">		
             </div>
+				<button class="search-button" style="width:100%" data-target="#us6-dialog" data-toggle="modal">Details</button>
         </div>
-    </div>
-    <div class="col-sm-3">
-        <input type="hidden" name="latfetch" class="form-control" value="" style="width: 110px" id="us3-lat" />
-    </div>
-    <div class="col-sm-3">
-        <input type="hidden" name="longfetch" class="form-control" value="" style="width: 110px" id="us3-lon" />
-    </div>
-    <div id="results">
-
     </div>
 </body>
 
@@ -79,28 +71,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Location</h4>
+                <h4 class="modal-title">Details</h4>
             </div>
             <div class="modal-body">
                 <div class="form-horizontal" style="width:100%x">
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="us3-address" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                    </div>
-                    <div id="us3" style="width: 100%; height: 180px;"></div>
-                    <div class="clearfix">&nbsp;</div>
-                    <div class="m-t-small">
-                        <div class="col-sm-3">
-                            <input type="hidden" name="latfetch" class="form-control" value="" style="width: 110px" id="us3-lat" />
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="hidden" name="longfetch" class="form-control" value="" style="width: 110px" id="us3-lon" />
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
+                    
                 </div>
             </div>
         </div>

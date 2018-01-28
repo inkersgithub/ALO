@@ -102,7 +102,6 @@
     <div class="container" style="margin-top:60px;padding-right: 3px;padding-left: 3px;">
         <div class="row" style="margin-right: 0px;margin-left: 0px; ">
             <div style="text-align:center;">
-				<form>
                 <input class="formclass" onClick="myFunction()" type="text" name="bookname" id="bname" placeholder="Book Name"  />
                 <input class="formclass" onClick="myFunction()" type="text" name="authorname" id="bauthor" placeholder="Author Name" />
                 <input class="formclass" onClick="myFunction()" type="text" style="width: 44%;" id="boldprice" name="orignalprice" placeholder="Original Price" />
@@ -115,7 +114,6 @@
 				<div id="uploaded_image"></div>
                 <textarea onClick="myFunction()" style="resize: none;margin-top: 11px;width: 89%;border: 0px;border-color: white;box-shadow: 0 1px 1px #337ab7;text-align: center;color: #757579;" name="about" id="babout" value="Descripition" rows="5" cols="50" placeholder="Descripition"></textarea>
                 <button style="margin-top: 6%;padding-right: 20px;padding-left: 20px;padding-top: 5px;padding-bottom: 5px;" class="search-button" onclick="SubmitFormData()">ADD</button>
-				</form>
             </div>
         </div>
     </div>
@@ -212,7 +210,7 @@
                 $('#myForm')[0].reset();
             });	
 		}else{
-			alert("Fill All Fields")
+			document.getElementById("results").innerHTML = '<p id="results" style="text-align: center;margin-top: 14px;color: red;">Fill all Fields</p>'
 		}
     }
 

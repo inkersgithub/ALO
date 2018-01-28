@@ -29,7 +29,7 @@
                 .pac-container {
                     z-index: 99999;
                 }
-                
+
                 .search-button {
                     background: #337ab7;
                     color: #fff;
@@ -43,7 +43,7 @@
                     outline: none;
                     margin-left: 0%;
                 }
-                
+
                 button:focus {
                     outline: 0;
                 }
@@ -60,13 +60,13 @@
                     border-left-color: transparent;
                     border-right-color: transparent;
                 }
-                
+
                 .cardsets {
                     min-height: 68px;
                     margin-top: 8px;
                     box-shadow: 0px 1px 3px #337ab7;
                 }
-                
+
                 .formclass {
                     margin-top: 11px;
                     width: 89%;
@@ -76,14 +76,14 @@
                     box-shadow: 0 1px 1px #337ab7;
                     text-align: center;
                 }
-                
+
                 .fullscreen {
                     margin-top: 14%;
                     background: white;
                     /* Just to visualize the extent */
                     text-align: center;
                 }
-                
+
                 .myicons {
                     font-size: 50px;
                     color: #337ab7;
@@ -113,7 +113,7 @@
                         </div>
                         <div style="padding-left: 10px;padding-right: 10px;">
                             <div class="cardsets">
-								<a href="single.php" style="text-decoration:blink">                            
+								<a href="single.php" style="text-decoration:blink">
 									<div class="" style="text-align:center;">
                                     <p style="word-wrap: break-word;padding-top: 8px;">
                                         <b>	Harry Potter and the Order of the Phoenix by J.K. Rowling  </b>
@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="" style="text-align:center;">
                                     <p style="word-wrap: break-word;">
-                                        ₹ 220 -- 3 k
+                                        ₹ 220 -- 3 km
                                     </p>
                                 </div>
 									</a>
@@ -132,7 +132,7 @@
                         <div style="height: 15px;">
                         </div>
                         <div style="padding-left: 10px;padding-right: 10px;">
-                            
+
                             <div class="cardsets">
 								<a href ="single.php" style="text-decoration:blink">
                                 <div class="" style="text-align:center;">
@@ -142,13 +142,13 @@
                                 </div>
                                 <div class="" style="text-align:center;">
                                     <p style="word-wrap: break-word;">
-                                        ₹ 220 -- 3 k
+                                        ₹ 220 -- 3 km
                                     </p>
                                 </div>
 									</a>
                             </div>
-								
-                            
+
+
                         </div>
                     </div>
                     <div id="menu2" class="tab-pane fade">
@@ -193,10 +193,10 @@
                                     <div class="col-xs-6">
                                         <div style="padding: 25%;box-shadow: 0 1px 1px #337ab7;">
                                             <button style="background: white;border: 0px;">
-                                                <li class="fa fa-key myicons"></li>
+                                                <li class="fa fa-cog myicons"></li>
                                             </button>
                                             <p style="margin-top:10px;margin-bottom: -2px;">
-                                                Change
+                                                Settings
                                             </p>
                                         </div>
                                     </div>
@@ -212,17 +212,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div style="text-align:center;">
-                    <input class="formclass" type="text" name="bookname" placeholder="Book Name" />
-                    <input class="formclass" type="text" name="authorname" placeholder="Author Name" />
-                    <input class="formclass" type="text" style="width: 44%;" name="orignalprice" placeholder="Original Price" />
-                    <input class="formclass" type="text" style="width: 44%;" name="newprice" placeholder="Selling Price" />
-                    <input class="formclass" type="text" name="about" placeholder="Descripition   " />
-                    <button style="    margin-top: 6%;padding-right: 20px;padding-left: 20px;padding-top: 5px;padding-bottom: 5px;" class="search-button">ADD</button>
-                </div> -->
                         </div>
                     </div>
-                    <div id="demo"></div>
+
                     <div id="us6-dialog" class="modal fade">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
@@ -266,19 +258,6 @@
 
         </body>
         <script>
-            window.onload = function() {
-                var x = document.getElementById("demo");
-
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(showPosition);
-                } else {
-                    x.innerHTML = "Geolocation is not supported by this browser.";
-                }
-
-                function showPosition(position) {
-                    x.innerHTML = "<br><input type='text' name='fetchlat' value='" + position.coords.latitude + "'/>" + "<br><input type='text' name='fetchlon' value='" + position.coords.longitude + "'/>";
-                }
-            };
 
             $('#us3').locationpicker({
                 location: {
@@ -314,8 +293,8 @@
             // on load of the page: switch to the currently selected tab
             var hash = window.location.hash;
             $('#myTab a[href="' + hash + '"]').tab('show');
-			
-			
+
+
         </script>
 
 </html>
