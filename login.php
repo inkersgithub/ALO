@@ -3,6 +3,7 @@
 session_start();
 if(isset($_SESSION['usr_id'] )){
     if($_SESSION['usr_id'] != ""){
+        $lat = $_POST['fetchlat'];
         header("Location:index.php");
     }
 }
@@ -79,32 +80,17 @@ if(isset($_SESSION['usr_id'] )){
                     <input class="formclass"  type="password" onkeyup="myFunction()" name="password" id="password" placeholder="Password"  required />
                     <input style="margin-top:20px;padding: 6px 25px;" type="submit" class="search-button" name="login" id="login_button" value="Login" />
                 </form>
-                <a href="register.php"><button style="margin-top:20px;padding: 6px 25px;" class="search-button" name="registernow" >Register</button></a>
+                <a href="register.php"><button style="margin-top:20px;padding: 6px 25px;" class="search-button"  name="registernow" >Register</button></a>
             </div>
             <div>
                 <p id="results"></p>
             </div>
         </div>
     </div>
-    <div id="demo"></div>
 </body>
-
 
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript">
-window.onload = function() {
-    var x = document.getElementById("demo");
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-
-    function showPosition(position) {
-        x.innerHTML = "<br><input type='hidden' name='fetchlat' id='lat' value='" + position.coords.latitude + "'/>" + "<br><input type='hidden' name='fetchlon' id='lon' value='" + position.coords.longitude + "'/>";
-    }
-};
 
 function do_login()
 {
@@ -127,12 +113,12 @@ function do_login()
             success:function(response) {
                 if(response=="success")
                 {
-                    window.location.href="index.php?lat="+lat+"&lon="+lon;
+                    window.location.href="index.php";
                 }
                 else
                 {
                     $("#loading_spinner").css({"display":"none"});
-                    document.getElementById("results").innerHTML = '<p id="results" style="text-align: center;margin-top: 14px;color: red;">Invalid username or password</p>'
+                    document.getElementById("results").innerHTML = '<p id="results" style="text-align: center;margin-top: 14px;color: red;">Invalid Email or password</p>'
                 }
             }
         });
@@ -149,6 +135,8 @@ function do_login()
 function myFunction() {
     document.getElementById("results").innerHTML = '<p id="results"></p>'
 }
+//window.onload = function(){ alert("Hi there");}
 </script>
+
 
 </html>

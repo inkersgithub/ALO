@@ -86,26 +86,9 @@ if(isset($_SESSION['usr_id'] )){
             </div>
         </div>
     </div>
-    <div>
-        <p id="results"></p>
-    </div>
-    <div id="demo"></div>
 </body>
 
 <script type="text/javascript">
-window.onload = function() {
-    var x = document.getElementById("demo");
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-
-    function showPosition(position) {
-        x.innerHTML = "<br><input type='hidden' name='fetchlat' id='lat' value='" + position.coords.latitude + "'/>" + "<br><input type='hidden' name='fetchlon' id='lon' value='" + position.coords.longitude + "'/>";
-    }
-};
 
 function do_register()
 {
@@ -132,7 +115,7 @@ function do_register()
             success:function(response) {
                 if(response=="success")
                 {
-                    window.location.href="index.php?lat="+lat+"&lon="+lon;
+                    window.location.href="index.php";
                 }
                 else
                 {

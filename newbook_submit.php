@@ -20,7 +20,7 @@ while($address==false){
 	$address = getAddress($latitude,$longitude);
 }
 
-$sql = "INSERT INTO alo_booklist(usr_id, book_name, book_oldprice, book_newprice, book_author, book_about, latitude, longitude, place, path) VALUES ('2', '$book_name', '$book_author', '$book_oldprice', '$book_newprice', '$book_about', '$latitude', '$longitude', '$address', '$path')";
+$sql = "INSERT INTO alo_booklist(usr_id, book_name, book_oldprice, book_newprice, book_author, book_about, latitude, longitude, place, path) VALUES ('2', '$book_name',  '$book_oldprice', '$book_newprice', '$book_author', '$book_about', '$latitude', '$longitude', '$address', '$path')";
 if(mysqli_query($con,$sql)){
     echo '<div id="results" style="text-align: center;color: green;margin-top: 11px;
     margin-bottom: 12px;">
