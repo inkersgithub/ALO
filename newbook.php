@@ -106,8 +106,8 @@
                 <input class="formclass" onClick="myFunction()" type="text" name="authorname" id="bauthor" placeholder="Author Name" />
                 <input class="formclass" onClick="myFunction()" type="text" style="width: 44%;" id="boldprice" name="orignalprice" placeholder="Original Price" />
                 <input class="formclass" onClick="myFunction()" type="text" style="width: 44%;" id="bnewprice" name="newprice" placeholder="Selling Price" />
-                <button class="search-button" style="margin-left: 0%;height: 35px;padding-left: 70px;padding-right: 70px;margin-top: 11px;" data-target="#us6-dialog" data-toggle="modal" onclick="myFunction()">Location</button>
-                <div class="fileUpload btn btn-primary" style="margin: 10px;margin-top: 2%;border: 0px transparent; border-radius: 0px;padding: 8.1px 15px;    font-size: 13px;">
+                <button class="search-button" style="margin-left: 3%;height: 35px;padding-left: 70px;padding-right: 70px;margin-top: 11px;" data-target="#us6-dialog" data-toggle="modal" onclick="myFunction()">Location</button>
+                <div class="fileUpload btn btn-primary" style="margin-top: 8px;border: 0px transparent; border-radius: 0px;padding: 8px 15px;    font-size: 14px;padding-bottom: 7px;">
                     <span>Photo</span>
                     <input type="file" class="upload" id="file" name="file" />
                 </div>

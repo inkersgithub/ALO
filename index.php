@@ -138,42 +138,46 @@ if(isset($_POST['searchbutton'])){
                             <div class="row" style="margin-left:0px;margin-right:0px">
                                 <div class="col-xs-6">
                                     <div style="padding: 25%;box-shadow: 0 1px 1px #337ab7;">
-                                            <button type="submit" name="addbook" style="background: white;border: 0px;">
-                                                <li class="fa fa-book myicons"></li>
-                                            </button>
-                                            <p style="margin-top:10px;margin-bottom: -2px;">
-                                                Add Book
-                                            </p>
-                                            <div class="col-sm-3">
-                                                <input type="hidden" name="latfetch" class="form-control" value="" style="width: 110px" id="us3-lat" />
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <input type="hidden" name="longfetch" class="form-control" value="" style="width: 110px" id="us3-lon" />
-                                            </div>
-                                        </form>
-                                    </div>
+                                        <button type="submit" name="addbook" style="background: white;border: 0px;">
+                                            <li class="fa fa-book myicons"></li>
+                                        </button>
+                                        <p style="margin-top:10px;margin-bottom: -2px;color:#337ab7">
+                                            Post Book
+                                        </p>
+                                        <div class="col-sm-3">
+                                            <input type="hidden" name="latfetch" class="form-control" value="" style="width: 110px" id="us3-lat" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="hidden" name="longfetch" class="form-control" value="" style="width: 110px" id="us3-lon" />
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="col-xs-6">
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="mybooks.php" style="text-decoration:none;">
                                     <div style="padding: 25%;box-shadow: 0 1px 1px #337ab7;">
                                         <button style="background: white;border: 0px;">
                                             <li class="fa fa-history myicons"></li>
                                         </button>
                                         <p style="margin-top:10px;margin-bottom: -2px;">
-                                            History
+                                            My Books
                                         </p>
                                     </div>
+                                    <a/>
                                 </div>
                             </div>
                             <div class="row" style="margin-left:0px;margin-right:0px;margin-top:24px;">
                                 <div class="col-xs-6">
-                                    <div style="padding: 25%;box-shadow: 0 1px 1px #337ab7;">
-                                        <button style="background: white;border: 0px;">
-                                            <li class="fa fa-cog myicons"></li>
-                                        </button>
-                                        <p style="margin-top:10px;margin-bottom: -2px;">
-                                            Settings
-                                        </p>
-                                    </div>
+                                    <a href="settings.php" style="text-decoration:none;">
+                                        <div style="padding: 25%;box-shadow: 0 1px 1px #337ab7;">
+                                            <button style="background: white;border: 0px;">
+                                                <li class="fa fa-cog myicons"></li>
+                                            </button>
+                                            <p style="margin-top:10px;margin-bottom: -2px;">
+                                                Settings
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="col-xs-6">
                                     <div style="padding: 25%;box-shadow: 0 1px 1px #337ab7;">

@@ -190,6 +190,33 @@ $rs_result = mysqli_query($con, $sql);
                 </div>
                 <div style="padding-left: 10px;padding-right: 10px;">
                     <div id="results2" style="margin-top:0px">
+                        <?php
+                        $keyword2 = "%".$_GET['keyword']."%";
+                        $radius = 300;
+                        $sqlold2 = sprintf("SELECT *, ( 6371 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM alo_booklist HAVING distance < '%s' ORDER BY distance LIMIT 0, 25",
+                        mysqli_real_escape_string($con,$_GET['lat']),
+                        mysqli_real_escape_string($con,$_GET['lon']),
+                        mysqli_real_escape_string($con,$_GET['lat']),
+                        //mysqli_real_escape_string($con,$keyword),
+                        mysqli_real_escape_string($con,$radius));
+                        $resultold2 = mysqli_query($con,$sqlold2);
+                        while ($row2 = mysqli_fetch_array($resultold2)) {
+                            echo '<div class="cardsets">
+                            <a href="single.php?bookid='.$row2['id2'].'" style="text-decoration:blink">
+                            <div class="" style="text-align:center;">
+                            <p style="word-wrap: break-word;padding-top: 8px;">
+                            <b>	'.$row2['book_name'].' by '.$row2['book_author'].'  </b>
+                            </p>
+                            </div>
+                            <div class="" style="text-align:center;">
+                            <p style="word-wrap: break-word;">
+                            ₹ '.$row2['book_newprice'].'
+                            </p>
+                            </div>
+                            </a>
+                            </div>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

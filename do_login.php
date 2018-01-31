@@ -12,7 +12,6 @@ if(isset($_POST['do_login'])){
         $_SESSION['usr_name'] = $row['name'];
         $_SESSION['usr_email'] = $row['email'];
         $_SESSION['usr_mobile'] = $row['mobile'];
-
         echo "success";
     }
     else {
