@@ -2,6 +2,8 @@
 <html>
 <?php
 ob_start();
+session_start();
+include_once 'dbconnect.php';
 ?>
 <?php
 if(isset($_POST['addbook'])){
@@ -102,13 +104,13 @@ if(isset($_POST['searchbutton'])){
         <div class="col-xs-12" style="margin-top: 25px;text-align: center">
             <button class="search-button" style="margin-left: 0%;height: 35px;" data-target="#us6-dialog" data-toggle="modal">Location</button>
             <form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" style="display:inline">
-                <input type="text" onkeyup="Enable()" name="search" style="margin-left: 0%;height: 35px;" id="searchinput" placeholder="search"  />
+                <input type="text" onkeyup="Enable()" autocomplete="off" name="search" style="margin-left: 0%;height: 35px;" id="searchinput" placeholder="search"  />
                 <button type="submit" id="myBtn" name="searchbutton" style="margin-right: 0%;height: 35px;" class="fa fa-search search-button"></button>
             </div>
         </div>
         <div class="container" style="margin-top:10px;padding-right: 3px;padding-left: 3px;">
             <ul class="nav nav-tabs" style="text-align:center" id="myTab">
-                <li style="width:33.3%" class="active"><a data-toggle="tab" href="#home">OLD</a></li>
+                <li style="width:33.3%" class="active"><a data-toggle="tab" href="#home">USED</a></li>
                 <li style="width:33.2%"><a data-toggle="tab" href="#menu1">NEW</a></li>
                 <li style="width:33.5%"><a data-toggle="tab" href="#menu2">PROFILE</a></li>
             </ul>
@@ -125,6 +127,33 @@ if(isset($_POST['searchbutton'])){
                     </div>
                     <div style="padding-left: 10px;padding-right: 10px;">
                         <div id="results" style="margin-top:-25px"></div>
+                        <?php
+                        $query = "SELECT  * FROM alo_booklist WHERE status='1' LIMIT 0,20";
+                        $result = mysqli_query($con,$query);
+                        if (!$result) {
+                            die("Invalid query: " . mysqli_error());
+                        }
+                        echo "<br />";
+
+                        // Iterate through the rows, adding XML nodes for each
+                        while ($row = @mysqli_fetch_assoc($result)){
+
+                            echo '<div class="cardsets">
+                            <a href="single.php?bookid='.$row['id2'].'" style="text-decoration:blink">
+                            <div class="" style="text-align:center;">
+                            <p style="word-wrap: break-word;padding-top: 8px;">
+                            <b>	'.$row['book_name'].' by '.$row['book_author'].'  </b>
+                            </p>
+                            </div>
+                            <div class="" style="text-align:center;">
+                            <p style="word-wrap: break-word;font-size:13px">
+                            ₹ '.$row['book_newprice'].'
+                            </p>
+                            </div>
+                            </a>
+                            </div>';
+                        }
+                        ?>
                     </div>
                 </div>
                 <div id="menu2" class="tab-pane fade">
@@ -180,6 +209,7 @@ if(isset($_POST['searchbutton'])){
                                     </a>
                                 </div>
                                 <div class="col-xs-6">
+                                    <a href="about.php" style="text-decoration:none;">
                                     <div style="padding: 25%;box-shadow: 0 1px 1px #337ab7;">
                                         <button style="background: white;border: 0px;">
                                             <li class="fa fa-users myicons"></li>
@@ -188,6 +218,7 @@ if(isset($_POST['searchbutton'])){
                                             About us
                                         </p>
                                     </div>
+                                    <a/>
                                 </div>
                             </div>
                         </div>
@@ -286,6 +317,19 @@ if(isset($_POST['searchbutton'])){
             </script>
 
             <script>
+
+            //$( document ).ready(function() {
+                navigator.geolocation.getCurrentPosition(showPosition);
+                function showPosition(position) {
+                    var latt = position.coords.latitude;
+                    var lngg = position.coords.longitude;
+                    $.post("oldbook_fetch.php", { latt: latt, lngg: lngg },
+                    function(data) {
+                        $('#results2').html(data);
+                    });
+                }
+            //});
+
             $( document ).ready(function() {
                 var x = document.getElementById("searchinput").value.length;
                 if(x>0){
@@ -303,21 +347,6 @@ if(isset($_POST['searchbutton'])){
                     document.getElementById("myBtn").disabled = true;
                 }
             }
-
-            $( document ).ready(function() {
-                navigator.geolocation.getCurrentPosition(showPosition);
-                function showPosition(position) {
-                    var latt = position.coords.latitude;
-                    var lngg = position.coords.longitude;
-                    $.post("newbook_fetch.php", { latt: latt, lngg: lngg },
-                    function(data) {
-                        $('#results').html(data);
-                    });
-                    $.post("oldbook_fetch.php", { latt: latt, lngg: lngg },
-                    function(data) {
-                        $('#results2').html(data);
-                    });
-                }
-            });
+            
             </script>
             </html>

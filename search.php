@@ -18,7 +18,7 @@ if(isset($_POST['searchbutton'])){
     $search = $_POST['search'];
     header("Location:search.php?lon=$longitude&lat=$latitude&keyword=$search#menu2");
 }
-$limit = 25;
+$limit = 20;
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };
 $start_from = ($page-1) * $limit;
 
@@ -114,7 +114,7 @@ $rs_result = mysqli_query($con, $sql);
             <button class="search-button" style="margin-left: 0%;height: 35px;" data-target="#us6-dialog" data-toggle="modal">Location</button>
             <form style="display:inline;" action="search.php" method="POST">
                 <input type="text" name="search" style="margin-left: 0%;height: 35px;" placeholder="search" required />
-                <button type="submit" name="searchbutton" style="margin-right: 0%;height: 35px;" class="fa fa-search search-button"></button>
+                <button type="submit" name="searchbutton" onkeyup="Enable()" autocomplete="off" style="margin-right: 0%;height: 35px;" class="fa fa-search search-button" id="searchinput"></button>
                 <div class="m-t-small">
                     <div class="col-sm-3">
                         <input type="hidden" name="latfetch" class="form-control" value="" style="width: 110px" id="us3-lat" />
@@ -128,7 +128,7 @@ $rs_result = mysqli_query($con, $sql);
     </div>
     <div class="container" style="margin-top:10px;padding-right: 3px;padding-left: 3px;">
         <ul class="nav nav-tabs" style="text-align:center" id="myTab">
-            <li style="width:50%" class="active"><a data-toggle="tab" href="#home">OLD</a></li>
+            <li style="width:50%" class="active"><a data-toggle="tab" href="#home">USED</a></li>
             <li style="width:50%"><a data-toggle="tab" href="#menu1">NEW</a></li>
 
         </ul>
@@ -141,13 +141,17 @@ $rs_result = mysqli_query($con, $sql);
                     <?php
                     $keyword = "%".$_GET['keyword']."%";
                     $radius = 300;
-                    $sqlold = sprintf("SELECT *, ( 6371 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM alo_booklist HAVING distance < '%s' ORDER BY distance LIMIT $start_from , $limit",
+                    $sqlold = sprintf("SELECT *, ( 6371 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM alo_booklist WHERE book_name LIKE '%s' AND status = '0' HAVING distance < '%s' ORDER BY distance LIMIT $start_from , $limit",
                     mysqli_real_escape_string($con,$_GET['lat']),
                     mysqli_real_escape_string($con,$_GET['lon']),
                     mysqli_real_escape_string($con,$_GET['lat']),
-                    //mysqli_real_escape_string($con,$keyword),
+                    mysqli_real_escape_string($con,$keyword),
                     mysqli_real_escape_string($con,$radius));
                     $resultold = mysqli_query($con,$sqlold);
+                    $numfind = mysqli_num_rows($resultold);
+                    if($numfind <= 0){
+                        echo '<p style="text-align: center;margin-top: 125px;color: red;">No BOOKS Found</p>';
+                    }
                     while ($row = mysqli_fetch_array($resultold)) {
                         echo '<div class="cardsets">
                         <a href="single.php?bookid='.$row['id2'].'" style="text-decoration:blink">
@@ -157,8 +161,8 @@ $rs_result = mysqli_query($con, $sql);
                         </p>
                         </div>
                         <div class="" style="text-align:center;">
-                        <p style="word-wrap: break-word;">
-                        ₹ '.$row['book_newprice'].'
+                        <p style="word-wrap: break-word;font-size:13px">
+                        Original ₹ '.$row['book_oldprice'].'--->Reselling ₹ '.$row['book_newprice'].'
                         </p>
                         </div>
                         </a>
@@ -167,22 +171,23 @@ $rs_result = mysqli_query($con, $sql);
                     ?>
                 </div>
                 <?php
-
-                $sqlnum = sprintf("SELECT COUNT(id2), ( 6371 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM alo_booklist  HAVING distance < '%s' ORDER BY distance LIMIT 0 , 150",
+                $sqlnum = sprintf("SELECT COUNT(id2), ( 6371 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM alo_booklist WHERE book_name LIKE '%s' AND status = '0' HAVING distance < '%s' ORDER BY distance LIMIT 0 , 150",
                 mysqli_real_escape_string($con,$_GET['lat']),
                 mysqli_real_escape_string($con,$_GET['lon']),
                 mysqli_real_escape_string($con,$_GET['lat']),
-                //mysqli_real_escape_string($con,$keyword),
+                mysqli_real_escape_string($con,$keyword),
                 mysqli_real_escape_string($con,$radius));
                 $rs_result = mysqli_query($con, $sqlnum);
                 $row = mysqli_fetch_row($rs_result);
                 $total_records = $row[0];
-                $total_pages = ceil($total_records / $limit);
-                $pagLink = "<div><nav style='text-align:center'><ul style='display: inline-table;text-aling:center' class='pagination'>";
-                for ($i=1; $i<=$total_pages; $i++) {
-                    $pagLink .= '<li><a href="search.php?lon='.$_GET['lon'].'&lat='.$_GET['lat'].'&keyword= '.$_GET['keyword'].'&page='.$i.'">'.$i.'</a></li>';
-                };
-                echo $pagLink . "</ul></nav></div>";
+                if($total_records>20){
+                    $total_pages = ceil($total_records / $limit);
+                    $pagLink = "<div><nav style='text-align:center'><ul style='display: inline-table;text-aling:center' class='pagination'>";
+                    for ($i=1; $i<=$total_pages; $i++) {
+                        $pagLink .= '<li><a href="search.php?lon='.$_GET['lon'].'&lat='.$_GET['lat'].'&keyword= '.$_GET['keyword'].'&page='.$i.'">'.$i.'</a></li>';
+                    };
+                    echo $pagLink . "</ul></nav></div>";
+                }
                 ?>
             </div>
             <div id="menu1" class="tab-pane fade">
@@ -193,13 +198,17 @@ $rs_result = mysqli_query($con, $sql);
                         <?php
                         $keyword2 = "%".$_GET['keyword']."%";
                         $radius = 300;
-                        $sqlold2 = sprintf("SELECT *, ( 6371 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM alo_booklist HAVING distance < '%s' ORDER BY distance LIMIT 0, 25",
+                        $sqlold2 = sprintf("SELECT *, ( 6371 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM alo_booklist WHERE book_name LIKE '%s' AND status = '1' HAVING distance < '%s' ORDER BY distance LIMIT 0, 25",
                         mysqli_real_escape_string($con,$_GET['lat']),
                         mysqli_real_escape_string($con,$_GET['lon']),
                         mysqli_real_escape_string($con,$_GET['lat']),
-                        //mysqli_real_escape_string($con,$keyword),
+                        mysqli_real_escape_string($con,$keyword),
                         mysqli_real_escape_string($con,$radius));
                         $resultold2 = mysqli_query($con,$sqlold2);
+                        $numfind2 = mysqli_num_rows($resultold2);
+                        if($numfind2 <= 0){
+                            echo '<p style="text-align: center;margin-top: 125px;color: red;">No BOOKS Found</p>';
+                        }
                         while ($row2 = mysqli_fetch_array($resultold2)) {
                             echo '<div class="cardsets">
                             <a href="single.php?bookid='.$row2['id2'].'" style="text-decoration:blink">
@@ -209,7 +218,7 @@ $rs_result = mysqli_query($con, $sql);
                             </p>
                             </div>
                             <div class="" style="text-align:center;">
-                            <p style="word-wrap: break-word;">
+                            <p style="word-wrap: break-word;font-size:13px">
                             ₹ '.$row2['book_newprice'].'
                             </p>
                             </div>
@@ -295,6 +304,25 @@ $rs_result = mysqli_query($con, $sql);
                 hrefTextPrefix : 'search.php?lon=<?php echo $_GET['lon']; ?>&lat=<?php echo $_GET['lat']; ?>&keyword=<?php echo $_GET['keyword']; ?>&page='
             });
         });
+
+        $( document ).ready(function() {
+            var x = document.getElementById("searchinput").value.length;
+            if(x>0){
+                document.getElementById("myBtn").disabled = false;
+            }else{
+                document.getElementById("myBtn").disabled = true;
+            }
+        });
+
+        function Enable(){
+            var x = document.getElementById("searchinput").value.length;
+            if(x>0){
+                document.getElementById("myBtn").disabled = false;
+            }else{
+                document.getElementById("myBtn").disabled = true;
+            }
+        }
+
         </script>
 
         </html>

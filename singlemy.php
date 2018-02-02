@@ -85,12 +85,24 @@ $bookid = $_GET['bookid'];
                     <p style="text-align:center;margin-top:-20px;font-size: 13px;">'.$value->book_about.'</p>';
                 }
                 ?>
+                ?>
             </div>
             <div>
             </div>
-            <a href = "tel:<?php echo ($value2->mobile); ?>"><button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Call</button></a>
+            <input type="hidden" value="<?php echo ($value->id2); ?>" id="bookid"/>
+            <div id="result">
+                <button class="w3-button w3-block w3-red w3-section w3-padding"  onclick="submitForm()">Remove</button>
+            </div>
         </div>
     </div>
 </div>
-
+<script>
+	function submitForm() {
+	var bookid = $("#bookid").val();
+    $.post("submit.php", { bookid: bookid },
+    function(data) {
+	 $("#result").html(data);
+    });
+}
+</script>
 </html>

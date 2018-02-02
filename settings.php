@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <?php
+session_start();
 include_once 'dbconnect.php';
+$usrid = $_SESSION['usr_id'];
 ?>
 <head lang="en">
     <meta charset="UTF-8">
@@ -69,7 +71,7 @@ include_once 'dbconnect.php';
                         <input class="formclass" onClick="myFunction()" type="text" name="currentpassword" id="currentpassword" placeholder="Current Password" required />
                         <input class="formclass" onClick="myFunction()" type="text" name="newpassword" id="password" placeholder="New Password" required />
                         <input class="formclass" onClick="myFunction()" type="text" name="repassword" id="confirm_password" placeholder="Re-Enter Password" required />
-                        <button type="submit" class="search-button">Change</button>
+                        <button type="submit" class="search-button">Change Password</button>
                     </form>
                 </div>
                 <div style="text-align:center;margin-top:10px">
@@ -77,8 +79,8 @@ include_once 'dbconnect.php';
                 </div>
                 <div style="text-align:center;margin-top: 5%">
                     <form style="display:inline;" method="post" id="myForm2" action="do_resetmobile.php" onsubmit="return do_resetmobile();">
-                        <input class="formclass" onClick="myFunction()" type="text" name="mobile" id="mobile" placeholder="Current Password" required />
-                        <button type="submit" class="search-button">Change</button>
+                        <input class="formclass" onClick="myFunction()" type="text" name="mobile" id="mobile" placeholder="New Number" required />
+                        <button type="submit" class="search-button">Change Number</button>
                     </form>
                 </div>
                 <div style="text-align:center;margin-top:10px">
@@ -164,13 +166,11 @@ function do_resetmobile()
             success:function(response) {
                 if(response=="success")
                 {
-                    document.getElementById("results2").innerHTML = '<p id="results2" style="color:green;">Password Changed</p>'
-                    $('#myForm2')[0].reset();
+                    document.getElementById("results2").innerHTML = '<p id="results2" style="color:green;">Mobile No Changed</p>'
                 }
                 else
                 {
                     document.getElementById("results2").innerHTML = '<p id="results2" style="color:red;">Error</p>'
-                    $('#myForm2')[0].reset();
                 }
             }
         });
@@ -183,7 +183,6 @@ function do_resetmobile()
 
     return false;
 }
-
 
 </script>
 

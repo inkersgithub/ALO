@@ -13,11 +13,12 @@ $book_newprice = $_POST['bnewprice'];
 $book_about = $_POST['babout'];
 $latitude = $_POST['lat'];
 $longitude = $_POST['lon'];
+$userid = $_SESSION['usr_id'];
 $address = getAddress($latitude,$longitude);
 while($address==false){
 	$address = getAddress($latitude,$longitude);
 }
-$sql = "INSERT INTO alo_booklist(usr_id, book_name, book_oldprice, book_newprice, book_author, book_about, latitude, longitude, place, path) VALUES ('$_SESSION['usr_id']', '$book_name',  '$book_oldprice', '$book_newprice', '$book_author', '$book_about', '$latitude', '$longitude', '$address', '$path')";
+$sql = "INSERT INTO alo_booklist(usr_id, book_name, book_oldprice, book_newprice, book_author, book_about, latitude, longitude, place, path) VALUES ('$userid', '$book_name', '$book_oldprice', '$book_newprice', '$book_author', '$book_about', '$latitude', '$longitude', '$address', '$path')";
 if(mysqli_query($con,$sql)){
 	echo '<div id="results" style="text-align: center;color: green;margin-top: 11px;
 	margin-bottom: 12px;">
