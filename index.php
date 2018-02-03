@@ -31,6 +31,46 @@ if(isset($_POST['searchbutton'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="dist/locationpicker.jquery.min.js"></script>
     <script src="dist/snbutton.js"></script>
+
+    <script>
+
+    function buildMap(lat, lng){
+        $('#us3').locationpicker({
+            location: {
+                latitude: +lat,
+                longitude: +lng
+            },
+            radius: 300,
+            inputBinding: {
+                latitudeInput: $('#us3-lat'),
+                longitudeInput: $('#us3-lon'),
+                radiusInput: $('#us3-radius'),
+                locationNameInput: $('#us3-address')
+            },
+            enableAutocomplete: true,
+            markerIcon: 'http://www.iconsdb.com/icons/preview/tropical-blue/map-marker-2-xl.png'
+        });
+
+        $('#us6-dialog').on('shown.bs.modal', function() {
+            $('#us3').locationpicker('autosize');
+        });
+    }
+    $( document ).ready(function() {
+        navigator.geolocation.getCurrentPosition(showPosition);
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            $('.map-lat').val(lat);
+            $('.map-lon').val(lng);
+            buildMap(lat, lng);
+            var element = document.getElementById("spinning");
+            element.classList.remove("fa-circle-o-notch");
+            element.classList.remove("fa");
+            element.classList.remove("fa-spin");
+
+        }
+    });
+    </script>
     <title>Alo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -102,7 +142,7 @@ if(isset($_POST['searchbutton'])){
 <body>
     <div class="row" style="margin-right: 0px;margin-left: 0px; ">
         <div class="col-xs-12" style="margin-top: 25px;text-align: center">
-            <button class="search-button" style="margin-left: 0%;height: 35px;" data-target="#us6-dialog" data-toggle="modal">Location</button>
+            <button class="search-button" style="margin-left: 0%;height: 35px;" data-target="#us6-dialog" data-toggle="modal">Location <i id="spinning" class="fa fa-circle-o-notch fa-spin"></i></button>
             <form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" style="display:inline">
                 <input type="text" onkeyup="Enable()" autocomplete="off" name="search" style="margin-left: 0%;height: 35px;" id="searchinput" placeholder="search" />
                 <button type="submit" id="myBtn" name="searchbutton" style="margin-right: 0%;height: 35px;" class="fa fa-search search-button"></button>
@@ -120,6 +160,9 @@ if(isset($_POST['searchbutton'])){
                     </div>
                     <div style="padding-left: 10px;padding-right: 10px;">
                         <div id="results2" style="margin-top:-25px"></div>
+                        <div id="remove" style="text-align:center;margin-top:150px;">
+                            <i class="fa fa-circle-o-notch fa-spin" style="color: #337ab7;font-size: 24px;"></i>
+                        </div>
                     </div>
                 </div>
                 <div id="menu1" class="tab-pane fade">
@@ -160,8 +203,8 @@ if(isset($_POST['searchbutton'])){
                     <div style="padding-left: 10px;padding-right: 10px;">
                         <div style="height: 15px;">
                         </div>
-                        <div style="text-align:center;margin-top: 13px;">
-                            Welcome ANOOP P
+                        <div style="text-align:center;margin-top: 13px;color:#337ab7;">
+                            Welcome <b>ANOOP P</b>
                         </div>
                         <div class="fullscreen">
                             <div class="row" style="margin-left:0px;margin-right:0px">
@@ -265,39 +308,6 @@ if(isset($_POST['searchbutton'])){
                 </body>
 
 
-                <script>
-                function buildMap(lat, lng){
-                    $('#us3').locationpicker({
-                        location: {
-                            latitude: +lat,
-                            longitude: +lng
-                        },
-                        radius: 300,
-                        inputBinding: {
-                            latitudeInput: $('#us3-lat'),
-                            longitudeInput: $('#us3-lon'),
-                            radiusInput: $('#us3-radius'),
-                            locationNameInput: $('#us3-address')
-                        },
-                        enableAutocomplete: true,
-                        markerIcon: 'http://www.iconsdb.com/icons/preview/tropical-blue/map-marker-2-xl.png'
-                    });
-                    $('#us6-dialog').on('shown.bs.modal', function() {
-                        $('#us3').locationpicker('autosize');
-                    });
-                }
-                $( document ).ready(function() {
-                    navigator.geolocation.getCurrentPosition(showPosition);
-                    function showPosition(position) {
-                        var lat = position.coords.latitude;
-                        var lng = position.coords.longitude;
-                        $('.map-lat').val(lat);
-                        $('.map-lon').val(lng);
-                        buildMap(lat, lng);
-
-                    }
-                });
-                </script>
 
                 <script>
                 //$( document ).ready(function() {
@@ -308,6 +318,7 @@ if(isset($_POST['searchbutton'])){
                     $.post("oldbook_fetch.php", { latt: latt, lngg: lngg },
                     function(data) {
                         $('#results2').html(data);
+                        $("#remove").remove();
                     });
                 }
                 //});

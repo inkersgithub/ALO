@@ -6,7 +6,7 @@ $center_lng = $_POST['lngg'];
 $radius = 600;
 
 // Search the rows in the markers table
-$query = sprintf("SELECT *, ( 6371 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM alo_booklist WHERE status = '0' HAVING distance < '%s' ORDER BY distance LIMIT 0 , 20",
+$query = sprintf("SELECT *, ( 6371 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM alo_booklist WHERE status = '0' HAVING distance < '%s' ORDER BY distance LIMIT 0 , 10",
 mysqli_real_escape_string($con,$center_lat),
 mysqli_real_escape_string($con,$center_lng),
 mysqli_real_escape_string($con,$center_lat),
