@@ -77,9 +77,9 @@ if(isset($_SESSION['usr_id'] )){
             <div style="text-align:center;margin-top: 23%;">
                 <form style="display:inline;text-align:center;" method="post" action="do_login.php" onsubmit="return do_register();">
                     <input class="formclass"  type="text" name="name" id="name" placeholder="Name" required />
-                    <input class="formclass"  type="textr" name="mobile" id="mobile" placeholder="Mobile" required />
+                    <input class="formclass"  type="text" name="mobile" title="Invalid Mobile Number" pattern="[789][0-9]{9}" id="mobile" placeholder="Mobile" required />
                     <input class="formclass"  type="email" name="email" id="email" placeholder="Email"  required />
-                    <input class="formclass"  type="password" name="password" id="password" placeholder="Password"  required />
+                    <input class="formclass"  type="password" name="password" pattern=".{8,}" id="password" title="Min 8 Characters" placeholder="Password"  required />
                     <input class="formclass"  type="password" name="password2" id="confirm_password" placeholder="Re Enter Password"  required />
                     <a href="index.php"><input style="margin-top:20px;padding: 6px 25px;" type="submit" class="search-button" name="registernow" value="Register" /></a>
                 </form>

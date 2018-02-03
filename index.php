@@ -104,7 +104,7 @@ if(isset($_POST['searchbutton'])){
         <div class="col-xs-12" style="margin-top: 25px;text-align: center">
             <button class="search-button" style="margin-left: 0%;height: 35px;" data-target="#us6-dialog" data-toggle="modal">Location</button>
             <form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" style="display:inline">
-                <input type="text" onkeyup="Enable()" autocomplete="off" name="search" style="margin-left: 0%;height: 35px;" id="searchinput" placeholder="search"  />
+                <input type="text" onkeyup="Enable()" autocomplete="off" name="search" style="margin-left: 0%;height: 35px;" id="searchinput" placeholder="search" />
                 <button type="submit" id="myBtn" name="searchbutton" style="margin-right: 0%;height: 35px;" class="fa fa-search search-button"></button>
             </div>
         </div>
@@ -209,116 +209,98 @@ if(isset($_POST['searchbutton'])){
                                     </a>
                                 </div>
                                 <div class="col-xs-6">
-                                    <a href="about.php" style="text-decoration:none;">
-                                    <div style="padding: 25%;box-shadow: 0 1px 1px #337ab7;">
-                                        <button style="background: white;border: 0px;">
-                                            <li class="fa fa-users myicons"></li>
-                                        </button>
-                                        <p style="margin-top:10px;margin-bottom: -2px;">
-                                            About us
-                                        </p>
+                                    <a href="logout.php" style="text-decoration:none;">
+                                        <div style="padding: 25%;box-shadow: 0 1px 1px #337ab7;">
+                                            <button style="background: white;border: 0px;">
+                                                <li class="fa fa-sign-out myicons"></li>
+                                            </button>
+                                            <p style="margin-top:10px;margin-bottom: -2px;">
+                                                Logout
+                                            </p>
+                                        </div>
+                                        <a/>
                                     </div>
-                                    <a/>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div id="us6-dialog" class="modal fade">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Location</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-horizontal" style="width:100%x">
-                                    <div class="form-group">
-                                        <!-- <label class="col-sm-2 control-label">Location:</label>-->
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="us3-address" />
+                    <div id="us6-dialog" class="modal fade">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Location</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-horizontal" style="width:100%x">
+                                        <div class="form-group">
+                                            <!-- <label class="col-sm-2 control-label">Location:</label>-->
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="us3-address" />
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                    </div>
-                                    <div id="us3" style="width: 100%; height: 180px;"></div>
-                                    <div class="clearfix">&nbsp;</div>
-                                    <div class="m-t-small">
-                                        <div class="col-sm-3">
-                                            <input type="hidden" name="latfetch" class="form-control" value="" style="width: 110px" id="us3-lat" />
+                                        <div class="form-group">
                                         </div>
-                                        <div class="col-sm-3">
-                                            <input type="hidden" name="longfetch" class="form-control" value="" style="width: 110px" id="us3-lon" />
+                                        <div id="us3" style="width: 100%; height: 180px;"></div>
+                                        <div class="clearfix">&nbsp;</div>
+                                        <div class="m-t-small">
+                                            <div class="col-sm-3">
+                                                <input type="hidden" name="latfetch" class="form-control" value="" style="width: 110px" id="us3-lat" />
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input type="hidden" name="longfetch" class="form-control" value="" style="width: 110px" id="us3-lon" />
+                                            </div>
                                         </div>
+                                        <div class="clearfix"></div>
                                     </div>
-                                    <div class="clearfix"></div>
                                 </div>
                             </div>
+                            <!-- /.modal-content -->
                         </div>
-                        <!-- /.modal-content -->
+                        <!-- /.modal-dialog -->
                     </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-            </body>
+                    <!-- /.modal -->
+                </body>
 
 
-            <script>
-            function buildMap(lat, lng){
-                $('#us3').locationpicker({
-                    location: {
-                        latitude: +lat,
-                        longitude: +lng
-                    },
-                    radius: 300,
-                    inputBinding: {
-                        latitudeInput: $('#us3-lat'),
-                        longitudeInput: $('#us3-lon'),
-                        radiusInput: $('#us3-radius'),
-                        locationNameInput: $('#us3-address')
-                    },
-                    enableAutocomplete: true,
-                    markerIcon: 'http://www.iconsdb.com/icons/preview/tropical-blue/map-marker-2-xl.png'
-                });
-                $('#us6-dialog').on('shown.bs.modal', function() {
-                    $('#us3').locationpicker('autosize');
-                });
-            }
-            $( document ).ready(function() {
-                navigator.geolocation.getCurrentPosition(showPosition);
-                function showPosition(position) {
-                    var lat = position.coords.latitude;
-                    var lng = position.coords.longitude;
-                    $('.map-lat').val(lat);
-                    $('.map-lon').val(lng);
-                    buildMap(lat, lng);
-
+                <script>
+                function buildMap(lat, lng){
+                    $('#us3').locationpicker({
+                        location: {
+                            latitude: +lat,
+                            longitude: +lng
+                        },
+                        radius: 300,
+                        inputBinding: {
+                            latitudeInput: $('#us3-lat'),
+                            longitudeInput: $('#us3-lon'),
+                            radiusInput: $('#us3-radius'),
+                            locationNameInput: $('#us3-address')
+                        },
+                        enableAutocomplete: true,
+                        markerIcon: 'http://www.iconsdb.com/icons/preview/tropical-blue/map-marker-2-xl.png'
+                    });
+                    $('#us6-dialog').on('shown.bs.modal', function() {
+                        $('#us3').locationpicker('autosize');
+                    });
                 }
-            });
-            </script>
+                $( document ).ready(function() {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                    function showPosition(position) {
+                        var lat = position.coords.latitude;
+                        var lng = position.coords.longitude;
+                        $('.map-lat').val(lat);
+                        $('.map-lon').val(lng);
+                        buildMap(lat, lng);
 
-            <script>
-            $('#myTab a').click(function(e) {
-                e.preventDefault();
-                $(this).tab('show');
-            });
+                    }
+                });
+                </script>
 
-            // store the currently selected tab in the hash value
-            $("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
-                var id = $(e.target).attr("href").substr(1);
-                window.location.hash = id;
-            });
-
-            // on load of the page: switch to the currently selected tab
-            var hash = window.location.hash;
-            $('#myTab a[href="' + hash + '"]').tab('show');
-            </script>
-
-            <script>
-
-            //$( document ).ready(function() {
+                <script>
+                //$( document ).ready(function() {
                 navigator.geolocation.getCurrentPosition(showPosition);
                 function showPosition(position) {
                     var latt = position.coords.latitude;
@@ -328,25 +310,43 @@ if(isset($_POST['searchbutton'])){
                         $('#results2').html(data);
                     });
                 }
-            //});
+                //});
 
-            $( document ).ready(function() {
-                var x = document.getElementById("searchinput").value.length;
-                if(x>0){
-                    document.getElementById("myBtn").disabled = false;
-                }else{
-                    document.getElementById("myBtn").disabled = true;
-                }
-            });
+                $( document ).ready(function() {
+                    var x = document.getElementById("searchinput").value.length;
+                    if(x>0){
+                        document.getElementById("myBtn").disabled = false;
+                    }else{
+                        document.getElementById("myBtn").disabled = true;
+                    }
+                });
 
-            function Enable(){
-                var x = document.getElementById("searchinput").value.length;
-                if(x>0){
-                    document.getElementById("myBtn").disabled = false;
-                }else{
-                    document.getElementById("myBtn").disabled = true;
+                function Enable(){
+                    var x = document.getElementById("searchinput").value.length;
+                    if(x>0){
+                        document.getElementById("myBtn").disabled = false;
+                    }else{
+                        document.getElementById("myBtn").disabled = true;
+                    }
                 }
-            }
-            
-            </script>
-            </html>
+                </script>
+
+
+                <script>
+                $('#myTab a').click(function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+
+                // store the currently selected tab in the hash value
+                $("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+                    var id = $(e.target).attr("href").substr(1);
+                    window.location.hash = id;
+                });
+
+                // on load of the page: switch to the currently selected tab
+                var hash = window.location.hash;
+                $('#myTab a[href="' + hash + '"]').tab('show');
+                </script>
+
+                </html>

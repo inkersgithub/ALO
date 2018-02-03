@@ -69,7 +69,7 @@ $usrid = $_SESSION['usr_id'];
                 <div style="text-align:center;margin-top: 25%">
                     <form style="display:inline;" method="post" id="myForm" action="do_reset.php" onsubmit="return do_reset();">
                         <input class="formclass" onClick="myFunction()" type="text" name="currentpassword" id="currentpassword" placeholder="Current Password" required />
-                        <input class="formclass" onClick="myFunction()" type="text" name="newpassword" id="password" placeholder="New Password" required />
+                        <input class="formclass" onClick="myFunction()" type="text" name="newpassword" pattern=".{8,}" title="Min 8 Chracters" id="password" placeholder="New Password" required />
                         <input class="formclass" onClick="myFunction()" type="text" name="repassword" id="confirm_password" placeholder="Re-Enter Password" required />
                         <button type="submit" class="search-button">Change Password</button>
                     </form>
@@ -79,7 +79,7 @@ $usrid = $_SESSION['usr_id'];
                 </div>
                 <div style="text-align:center;margin-top: 5%">
                     <form style="display:inline;" method="post" id="myForm2" action="do_resetmobile.php" onsubmit="return do_resetmobile();">
-                        <input class="formclass" onClick="myFunction()" type="text" name="mobile" id="mobile" placeholder="New Number" required />
+                        <input class="formclass" onClick="myFunction()" type="text" name="mobile" title="Invalid Mobile Number" pattern="[789][0-9]{9}" id="mobile" placeholder="New Number" required />
                         <button type="submit" class="search-button">Change Number</button>
                     </form>
                 </div>

@@ -8,13 +8,6 @@ $bookid = $_GET['bookid'];
     <meta charset="UTF-8">
     <!-- Bootstrap stuff -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEelMW2Wnlzbq1KFNvOF3fCaLp_FTclFA&sensor=false&libraries=places" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="dist/locationpicker.jquery.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>Alo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,13 +68,13 @@ $bookid = $_GET['bookid'];
                 $value2 = mysqli_fetch_object(mysqli_query($con,$sql2));
                 if(($value->status)==0){
                     $text_line = explode(",",$value->place);
-                    echo '<p style="float:left;margin-left:25px;font-size: 13px;">Old Price - '.$value->book_oldprice.'</p>
-                    <p style="float:right;margin-right:25px;font-size: 13px;">Reselling Price - '.$value->book_newprice.'</p><br/><br/>
-                    <p style="text-align:center;margin-top: -13px;font-size: 14px;">'.$text_line[0].','.$text_line[1].'</p><br />
+                    echo '<p style="float:left;margin-left:25px;font-size: 13px;">Old Price - <b>'.$value->book_oldprice.'</b></p>
+                    <p style="float:right;margin-right:25px;font-size: 13px;">Reselling Price - <b>'.$value->book_newprice.'</b></p><br/><br/>
+                    <p style="text-align:center;margin-top: -13px;font-size: 14px;"><b>'.$text_line[0].','.$text_line[1].'</b></p><br />
                     <p style="text-align:center;margin-top: -20px;font-size: 13px;">'.$value->book_about.'</p><br />
                     <p style="text-align:center;margin-top: -15px;font-size: 14px;">Posted By '.$value2->name.'</p>';
                 }else {
-                    echo '<p style="text-align:center;font-size: 13px;margin-top: 0px;">Price - '.$value->book_newprice.'</p><br />
+                    echo '<p style="text-align:center;font-size: 13px;margin-top: 0px;">Price - <b>'.$value->book_newprice.'</b></p><br />
                     <p style="text-align:center;margin-top:-20px;font-size: 13px;">'.$value->book_about.'</p>';
                 }
                 ?>
